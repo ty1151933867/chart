@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="./Chart.min.js"></script>
+    <script src="./jquery.js"></script>
+    <script src="./jquery-1.10.2.min.js"></script>
+    <script src="./data.js"></script>
+    <link rel="stylesheet" type="text/css" href="./dmeo.css">
+</head>
+
+<body>
+    <div id="chart-container" style="width:650px;height: 400px;">
+        <div id="lowProbability" class="tooltip">
+            <span class="probability">30%</span>
+            <span>の確率で</span>
+            <span id="lowProbabilityAmount" class="amount"></span>
+            <span class="">万円以上</span>
+        </div></br>
+        <div id="middleProbability" class="tooltip">
+            <span class="probability">50%</span>
+            <span>の確率で</span>
+            <span id="middleProbabilityAmount" class="amount"></span>
+            <span class="">万円以上</span>
+        </div></br>
+        <div id="highProbability" class="tooltip">
+            <span class="probability">70%</span>
+            <span>の確率で</span>
+            <span id="highProbabilityAmount" class="amount"></span>
+            <span>万円以上</span>
+        </div></br>
+        <div id="totalInvest">
+            <span>元本</span>
+            <span id="totalInvestAmount" class="amount"></span>
+            <span>万円</span>
+        </div>
+        <canvas id="myChart"></canvas>
+    </div>
+</body>
+<script src="./LineChart.js"></script>
+
+</html>

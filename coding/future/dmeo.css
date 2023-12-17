@@ -1,0 +1,36 @@
+#myChart {
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index: 1;
+}
+.tooltip {
+    position: absolute;
+    left: 10px;
+    padding-top: 20px;
+    font-size: 12px;
+    color: #0984E3;
+}
+
+#totalInvest {
+    position: absolute;
+    left: 10px;
+    padding-top: 5px;
+    margin-top: 20px;
+    font-size: 12px;
+    color: #9c9c9c;
+}
+
+.probability {
+    font-weight: bold;
+    font-size: 16px;
+}
+
+.amount {
+    font-weight: bold;
+    font-size: 16px;
+}
+canvas{
+    width: 650px;
+    height: 580px;
+}

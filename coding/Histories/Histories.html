@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <title>xxxxxxxxxxxxx</title>
+    <!-- <script src="https://cdn.jsdelivr.net/npm/chart.js"></script> -->
+    <script src="./Chart.min.js"></script>
+    <script src="./jquery.js"></script>
+    <script src="./jquery-1.10.2.min.js"></script>
+    <script src="./data.js"></script>
+    <style>
+        canvas {
+            margin: 20px;
+            /* //padding: 20px; */
+        }
+
+        div {
+            font-size: 10px;
+            opacity: 0.85;
+        }
+
+        .spm-m1-asf-chart-simulation__unit {
+            position: absolute;
+            left: 0;
+            font-size: 10px;
+            color: #686868
+        }
+
+        .spm-m1-asf-chart-simulation__div {
+            position: absolute;
+            left: 50%;
+            bottom: 100%;
+            font-size: 10px;
+            margin: 20px;
+            color: #686868
+        }
+
+        #last-point {
+            position: absolute;
+            text-align: right;
+            font-size: 12px;
+            font-weight: bold;
+            /* color: #9c9c9c; */
+        }
+
+        #history-last-point {
+            position: absolute;
+            pointer-events: none;
+            text-align: right;
+            font-size: 12px;
+            color: #0984e3;
+            background-color: rgba(255, 255, 255, 0.5);
+        }
+
+        #history-last-point span {
+            background-color: rgba(255, 255, 255, 1);
+            font-weight: bold;
+            font-size: 12px;
+        }
+
+        #lehmanTitle {
+            position: absolute;
+        }
+
+        #chinaTitle {
+            position: absolute;
+        }
+
+        #coronaTitle {
+            position: absolute;
+        }
+
+        h2 {
+            text-align: center;
+        }
+        #chart-tooltip{
+            z-index: 2;
+            white-space: nowrap;
+            border-radius: 3px;
+        }
+        #chart-tooltip:before {
+            z-index: 2;
+            content: "";
+            border: 12px solid transparent;
+            border-left: 4px solid transparent;
+            border-right: 4px solid transparent;
+            border-top: 12px solid rgba(255, 255, 255, 1);
+            position: absolute;
+            left: 46%;
+            bottom: -22px
+        }
+
+        #chart-tooltip:after {
+            content: "";
+            border: 12px solid transparent;
+            border-left: 4px solid transparent;
+            border-right: 4px solid transparent;
+            border-top: 12px solid rgb(255, 255, 255);
+            position: absolute;
+            left: 46%;
+            bottom: -22px
+        }
+    </style>
+</head>
+
+<body>
+    <div style="width: 70%;height: 70%;">
+        <!-- <div class="spm-m1-asf-chart-simulation__unit">リーマン・ショック前から運用開始した場合</div> -->
+        <h2>リーマン・ショック前から運用開始した場合</h2>
+        <!-- リーマン・ジョック -->
+        <!-- <div id="lehmanTitle">
+            <span>リーマン・ショック</span>
+        </div> -->
+        <!-- チャイナ・ショック -->
+        <!-- <div id="chinaTitle">
+            <span>チャイナ・ショック</span>
+        </div> -->
+        <!-- コロナ・ショック -->
+        <!-- <div id="coronaTitle">
+            <span>コロナ・ショック</span>
+        </div> -->
+        <div id="hidden-elements" style="display: none;">
+            <!-- リーマン・ジョック -->
+            <span class="start-date">2008-1-1</span>
+            <span class="end-date">2009-2-1</span>
+            <span class="shock-title" title-id='lehman-title'>リーマン・ジョック</span>
+             <!-- チャイナ・ショック -->
+            <span class="start-date">2015-5-1</span>
+            <span class="end-date">2016-2-1</span>
+            <span class="shock-title" title-id='china-title'>チャイナ・ショック</span>
+ 
+            <!-- コロナ・ショック -->
+            <span class="start-date">2019-12-1</span>
+            <span class="end-date">2020-4-1</span>
+            <span class="shock-title" title-id='corona-title'>コロナ・ショック</span>
+        </div>
+        <div id="last-point">
+            <span>元本</span><br>
+            <span id="last-point-amount"></span>
+            <span>万円</span>
+        </div>
+        <div id="history-last-point">
+            <span>総資産</span><br>
+            <span id="history-last-point-amount"></span>
+            <span>万円</span>
+        </div>
+        <!-- tooltip -->
+        <div id="chart-tooltip"><table></table></div>
+        <canvas id="myChart"></canvas>
+        <div class="spm-m1-asf-chart-simulation__unit">(万円)</div>
+        <div class="spm-m1-asf-chart-simulation__unit">(年)</div>
+    </div>
+</body>
+<script src="./LineChart.js"></script>
+
+</html>
