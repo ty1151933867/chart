@@ -32,21 +32,20 @@
 			var barAmount = [];
 			var barBackgroundColor = [];
 
-			//リーマン・ジョック
-			var lehmanStartDate = new Date('2008-1-1');
-			var lehmanEndDate = new Date('2009-2-1');
-			var lehmanIndex = [];
-			//チャイナ・ショック
-			var chinaStartDate = new Date('2015-5-1');
-			var chinaEndDate = new Date('2016-2-1');
-			var chinaIndex = [];
-			//コロナ・ショック
-			var coronaStartDate = new Date('2019-12-1');
-			var coronaEndDate = new Date('2020-4-1');
-			var coronaIndex = [];
+			// //リーマン・ジョック
+			// var lehmanStartDate = new Date('2008-1-1');
+			// var lehmanEndDate = new Date('2009-2-1');
+			// var lehmanIndex = [];
+			// //チャイナ・ショック
+			// var chinaStartDate = new Date('2015-5-1');
+			// var chinaEndDate = new Date('2016-2-1');
+			// var chinaIndex = [];
+			// //コロナ・ショック
+			// var coronaStartDate = new Date('2019-12-1');
+			// var coronaEndDate = new Date('2020-4-1');
+			// var coronaIndex = [];
 
 			var shockIndex = [];
-			var hiddenElements = document.querySelector('#hidden-elements');
 			var startDate = document.querySelectorAll('#hidden-elements>.start-date');
 			var endDate = document.querySelectorAll('#hidden-elements>.end-date');
 			var shockTitle = document.querySelectorAll('#hidden-elements>.shock-title');
@@ -73,33 +72,34 @@
 			var yStepSize = Math.floor((yMax / 3) / 100) * 100;
 
 			var ss = Math.floor(maxHistorieAmount / 100) * 100 + 100;
-			var shockCounts=[];
+			var shockCounts = [];
 			console.log('最高' + maxHistorieAmount + ":" + yMax + ":" + yStepSize);
-			for(var i = 0; i < labels.length; i++){
+			for (var i = 0; i < labels.length; i++) {
 				var fillColorFlag = 0;
 				var ss = 0;
 				barAmount.push(maxHistorieAmount);
-				for(var j = 0; j < startDate.length; j++){
+				for (var j = 0; j < startDate.length; j++) {
 					var date1 = new Date(startDate[j].innerHTML);
 					var date2 = new Date(endDate[j].innerHTML);
-					if(labels[i] >= date1 && labels[i] <= date2){
+					if (labels[i] >= date1 && labels[i] <= date2) {
 						fillColorFlag = 1;
 						shockCounts.push(j);
 						break;
-					}else{
+					} else {
 						continue;
 					}
 				}
-				if(fillColorFlag === 0){
+				if (fillColorFlag === 0) {
 					barBackgroundColor.push('transparent');
-					shockIndex.push(0);
-				}else{
+					shockIndex.push('F');
+				} else {
 					barBackgroundColor.push('rgba(86, 94, 99, 0.15)');
 					shockIndex.push(i);
 				}
 			};
 			var shockCounts = countNumbers(shockCounts);
 			var shockBeginIndex = findZeroBeforeOne(shockIndex);
+			console.log(startDate);
 			//barチャートのデータ
 			// for (var i = 0; i < labels.length; i++) {
 			// 	barAmount.push(maxHistorieAmount)
@@ -231,7 +231,7 @@
 							lineWidth: 2,
 							maxTicksLimit: yStepSize,
 							callback: function (label, index, labels) {
-								console.log(label);
+								// console.log(label);
 								if ((label == vInitialInvestmentAmount) ||
 									(label == yStepSize) ||
 									(label == yStepSize * 2) ||
@@ -380,8 +380,8 @@
 						var position = this._chart.canvas.getBoundingClientRect();
 						tooltipEl.style.opacity = 1;
 						tooltipEl.style.position = 'absolute';
-						tooltipEl.style.left = position.left + window.pageXOffset + tooltipModel.caretX -tooltipEl.clientWidth/2+ 'px';
-						tooltipEl.style.top = position.top + window.pageYOffset + tooltipModel.caretY - tooltipEl.clientHeight-15 + 'px';
+						tooltipEl.style.left = position.left + window.pageXOffset + tooltipModel.caretX - tooltipEl.clientWidth / 2 + 'px';
+						tooltipEl.style.top = position.top + window.pageYOffset + tooltipModel.caretY - tooltipEl.clientHeight - 15 + 'px';
 						tooltipEl.style.backgroundColor = tooltipModel.backgroundColor;
 						tooltipEl.style.padding = tooltipModel.yPadding + 'px ' + tooltipModel.xPadding + 'px';
 						tooltipEl.style.boxShadow = '0 0 20px #0003';
@@ -448,28 +448,51 @@
 					// coronaTitleDiv.style.left = coronaTitleOffsetX + 'px';
 					// coronaTitleDiv.style.top = coronaTitleOffsetY + 'px';
 
-					for(var i = 0; i < shockBeginIndex.length; i++){
+					for (var i = 0; i < shockBeginIndex.length; i++) {
 						var titleId = shockTitle[i].getAttribute('title-id');
 						var shockTitleDiv = document.getElementById(titleId);
 						if (!shockTitleDiv) {
 							shockTitleDiv = document.createElement('div');
 							shockTitleDiv.id = titleId;
-							shockTitleDiv.innerHTML = '<span>'+shockTitle[i].innerHTML+'</span>';
+							shockTitleDiv.innerHTML = '<span>' + shockTitle[i].innerHTML + '</span>';
 							shockTitleDiv.style.position = 'absolute';
 							document.body.appendChild(shockTitleDiv);
 						}
-						var firstPointModel = {};
-						if (i === 0) {
-							firstPointModel = chart.data.datasets[2]._meta[0].data[shockBeginIndex[i]]._model;
-							var shockTitleOffsetX = firstPointModel.x + canvasRect.left;
-						} else {
-							var middle = Math.floor(shockCounts[i]/2);
-							firstPointModel = chart.data.datasets[2]._meta[0].data[shockBeginIndex[i]+middle]._model;
-							var shockTitleOffsetX = firstPointModel.x + canvasRect.left-shockTitleDiv.clientWidth / 2;
+						// var firstPointModel = {};
+						// if (i === 0) {
+						// 	firstPointModel = chart.data.datasets[2]._meta[0].data[shockBeginIndex[i]]._model;
+						// 	var shockTitleOffsetX = firstPointModel.x + canvasRect.left;
+						// } else {
+						// 	var middle = Math.floor(shockCounts[i] / 2);
+						// 	firstPointModel = chart.data.datasets[2]._meta[0].data[shockBeginIndex[i] + middle]._model;
+						// 	var shockTitleOffsetX = firstPointModel.x + canvasRect.left - shockTitleDiv.clientWidth / 2;
+						// }
+						// var shockTitleOffsetY = firstPointModel.y - shockTitleDiv.clientHeight + canvasRect.top
+						// shockTitleDiv.style.left = shockTitleOffsetX + 'px';
+						// shockTitleDiv.style.top = shockTitleOffsetY + 'px';
+
+						var firstPointModel = chart.data.datasets[2]._meta[0].data[0]._model;
+						var lastPointModel = chart.data.datasets[2]._meta[0].data[ chart.data.datasets[2]._meta[0].data.length-1]._model;
+						var startIndex = shockBeginIndex[i];
+						var middleIndex = shockBeginIndex[i]+Math.floor(shockCounts[i] / 2);
+						var endIndex = shockBeginIndex[i]+shockCounts[i]-1;
+						var shockStartPointModel = chart.data.datasets[2]._meta[0].data[startIndex]._model;
+						var shockMiddlePointModel = chart.data.datasets[2]._meta[0].data[middleIndex]._model;
+						var shockEndPointModel = chart.data.datasets[2]._meta[0].data[endIndex]._model;
+						if((shockMiddlePointModel.x - shockTitleDiv.clientWidth / 2) > firstPointModel.x && 
+							(shockMiddlePointModel.x + shockTitleDiv.clientWidth / 2) < lastPointModel.x){
+								var shockTitleOffsetX = shockMiddlePointModel.x - shockTitleDiv.clientWidth / 2+ canvasRect.left;
+								var shockTitleOffsetY = shockMiddlePointModel.y - shockTitleDiv.clientHeight + canvasRect.top
+						}else if ((shockStartPointModel.x + shockTitleDiv.clientWidth) > lastPointModel.x){
+							var shockTitleOffsetX = shockEndPointModel.x - shockTitleDiv.clientWidth + canvasRect.left;
+							var shockTitleOffsetY = shockEndPointModel.y - shockTitleDiv.clientHeight + canvasRect.top
+						}else{
+							var shockTitleOffsetX = shockStartPointModel.x + canvasRect.left;
+							var shockTitleOffsetY = shockStartPointModel.y - shockTitleDiv.clientHeight + canvasRect.top
 						}
-						var shockTitleOffsetY = firstPointModel.y - shockTitleDiv.clientHeight + canvasRect.top
 						shockTitleDiv.style.left = shockTitleOffsetX + 'px';
 						shockTitleDiv.style.top = shockTitleOffsetY + 'px';
+
 					}
 				}
 			};
@@ -501,29 +524,32 @@
 		}
 		function findZeroBeforeOne(arr) {
 			var result = [];
-			var hasZeroBeforeOne = false; 
+			var hasZeroBeforeOne = false;
 			for (var i = 0; i < arr.length; i++) {
-			  if (arr[i] != 0) {
-				if (hasZeroBeforeOne) {
-				  result.push(i); 
+				if (arr[i] != 'F' && i === 0) {
+					result.push(i);
+					hasZeroBeforeOne = false;
+				} else if (arr[i] != 'F') {
+					if (hasZeroBeforeOne) {
+						result.push(arr[i]);
+					}
+					hasZeroBeforeOne = false;
+				} else {
+					hasZeroBeforeOne = true;
 				}
-				hasZeroBeforeOne = false;
-			  } else {
-				hasZeroBeforeOne = true;
-			  }
 			}
 			return result;
-		  }
-		  function countNumbers(arr) {
+		}
+		function countNumbers(arr) {
 			const counts = {};
 			for (let i = 0; i < arr.length; i++) {
-			  if (counts[arr[i]]) {
-				counts[arr[i]]++;
-			  } else {
-				counts[arr[i]] = 1;
-			  }
+				if (counts[arr[i]]) {
+					counts[arr[i]]++;
+				} else {
+					counts[arr[i]] = 1;
+				}
 			}
 			return counts;
-		  }
+		}
 	}()
 })()
