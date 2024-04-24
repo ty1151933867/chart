@@ -378,14 +378,17 @@
 							tableRoot.innerHTML = innerHtml;
 						}
 						var position = this._chart.canvas.getBoundingClientRect();
+						$('#chart-tooltip').attr('style','');
 						tooltipEl.style.opacity = 1;
 						tooltipEl.style.position = 'absolute';
-						tooltipEl.style.left = position.left + window.pageXOffset + tooltipModel.caretX - tooltipEl.clientWidth / 2 + 'px';
-						tooltipEl.style.top = position.top + window.pageYOffset + tooltipModel.caretY - tooltipEl.clientHeight - 15 + 'px';
-						tooltipEl.style.backgroundColor = tooltipModel.backgroundColor;
 						tooltipEl.style.padding = tooltipModel.yPadding + 'px ' + tooltipModel.xPadding + 'px';
+						tooltipEl.style.left = position.left + window.pageXOffset + tooltipModel.caretX - tooltipEl.clientWidth / 2 + 'px';
+						tooltipEl.style.top = position.top + window.pageYOffset + tooltipModel.caretY - tooltipEl.clientHeight - 18 + 'px';
+						tooltipEl.style.backgroundColor = tooltipModel.backgroundColor;
 						tooltipEl.style.boxShadow = '0 0 20px #0003';
 						tooltipEl.style.pointerEvents = 'none';
+						var tooltipElStyle = $('#chart-tooltip').attr('style');
+						$('#chart-tooltip').attr('style',tooltipElStyle +'--before-left:46%;');
 					}
 				}
 			};
