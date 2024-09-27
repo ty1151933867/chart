@@ -4,6 +4,7 @@
     left: 0;
     z-index: 1;
 }
+
 .tooltip {
     position: absolute;
     left: 10px;
@@ -30,7 +31,9 @@
     font-weight: bold;
     font-size: 16px;
 }
+
 /* canvas{
     width: 650px;
     height: 580px;
 } */
+@media (max-width: 991px) {}
